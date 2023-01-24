@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+        align-items: center;
+        margin: 0 auto;
+      }
+      .container h2 {
+        color: rgb(8, 181, 228);
+      }
+      .image {
+        width: 100%;
+        height: 100%;
+      }
+      .countdown {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        text-align: center;
+        font-size: 16px;
+        color: white;
+        min-width: 300px;
+      }
+      .countdown-item {
+        background-color: rgb(8, 181, 228);
+        padding: 6px;
+        min-width: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img class="image" src="images/706769396122.jpeg" alt="" />
+      <h2>Premier "Avatar 2"</h2>
+      <div class="countdown">
+        <div class="countdown-item">
+          <h4 class="days">10</h4>
+          <span>дни</span>
+        </div>
+        <div class="countdown-item">
+          <h4 class="hours">10</h4>
+          <span>часы </span>
+        </div>
+        <div class="countdown-item">
+          <h4 class="minutes">10</h4>
+          <span>минуты</span>
+        </div>
+        <div class="countdown-item">
+          <h4 class="seconds">10</h4>
+          <span>секунды</span>
+        </div>
+      </div>
+    </div>
+    <div id="timer"></div>
+    <script>
+      let items = document.querySelectorAll(".countdown-item > h4");
+      let countdownDate = new Date(2023, 9, 29, 12, 29, 0).getTime();
+      function getCountTime() {
+        let now = new Date().getTime();
+        let distance = countdownDate - now;
+        let oneDay = 24 * 60 * 60 * 1000;
+        let oneHour = 60 * 60 * 1000;
+        let oneMinute = 60 * 1000;
+        let days = Math.floor(distance / oneDay);
+        let hours = Math.floor((distance % oneDay) / oneHour);
+        let minutes = Math.floor((distance % oneHour) / oneMinute);
+        let seconds = Math.floor((distance % oneMinute) / 1000);
+        let values = [days, hours, minutes, seconds];
+        items.forEach(function (item, index) {
+          item.textContent = values[index];
+        });
+
+        if (distance < 0) {
+          clearInterval(countdown);
+          alert("Go to the movie!");
+        }
+      }
+      let countdown = setInterval(getCountTime, 1000);
+      getCountTime();
+    </script>
+  </body>
+</html>
